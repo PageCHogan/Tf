@@ -1,0 +1,24 @@
+﻿@model Triggerfish.Models.PageViewModels.HomePageViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4"><label asp-for="AddressList"></label></h1>
+    <hr />
+    
+    <div>
+        <ul>
+            @{
+                foreach (AddressModel address in Model.AddressList)
+                {
+                    <li>
+                        @address.Address : @address.PostalCode
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+
+</div>
