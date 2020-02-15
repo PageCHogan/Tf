@@ -1,23 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Git\\Tf\\Triggerfish.csproj": {}
+    "D:\\Git\\Tf\\Triggerfish.csproj": {}
   },
   "projects": {
-    "C:\\Git\\Tf\\Triggerfish.csproj": {
+    "D:\\Git\\Tf\\Triggerfish.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Git\\Tf\\Triggerfish.csproj",
+        "projectUniqueName": "D:\\Git\\Tf\\Triggerfish.csproj",
         "projectName": "Triggerfish",
-        "projectPath": "C:\\Git\\Tf\\Triggerfish.csproj",
-        "packagesPath": "C:\\Users\\pageh\\.nuget\\packages\\",
-        "outputPath": "C:\\Git\\Tf\\obj\\",
+        "projectPath": "D:\\Git\\Tf\\Triggerfish.csproj",
+        "packagesPath": "C:\\Users\\Hogan\\.nuget\\packages\\",
+        "outputPath": "D:\\Git\\Tf\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\pageh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Hogan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],

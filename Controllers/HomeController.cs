@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -16,6 +17,7 @@ namespace Triggerfish.Controllers
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
+        private const string TEST_DATA_PATH = "wwwroot/documents/addresses.json";
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -26,12 +28,17 @@ namespace Triggerfish.Controllers
         {
             HomePageViewModel viewModel = new HomePageViewModel();
 
-            using (StreamReader r = new StreamReader("wwwroot/documents/addresses.json"))
+            using (StreamReader reader = new StreamReader(TEST_DATA_PATH))
             {
-                string json = r.ReadToEnd();
+                string json = reader.ReadToEnd();
 
-                var a = await ProcessJson(JsonConvert.DeserializeObject<List<AddressModel>>(json));
-                viewModel.AddressList = a.ToList();
+                IEnumerable<AddressModel> addresses = await ProcessAddresses(JsonConvert.DeserializeObject<List<AddressModel>>(json));
+                viewModel.AddressList = addresses.ToList();
+            }
+
+            if(viewModel.AddressList.Count > 0)
+            {
+                viewModel.PostcodeList.AddRange(viewModel.AddressList.Select(x => x.PostalCode).Distinct().OfType<string>());
             }
 
             return View(viewModel);
@@ -48,19 +55,21 @@ namespace Triggerfish.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public async Task<IEnumerable<AddressModel>> ProcessJson(List<AddressModel> addressModels)
+        public async Task<IEnumerable<AddressModel>> ProcessAddresses(List<AddressModel> addresses)
         {
-            List<Task<AddressModel>> listOfTasks = new List<Task<AddressModel>>();
+            List<Task<AddressModel>> taskList = new List<Task<AddressModel>>();
 
-            if (addressModels != null)
+            if (addresses != null)
             {
-                foreach (var address in addressModels)
+                foreach (var address in addresses)
                 {
-                    listOfTasks.Add(ExtractPostCodes(address));
+                    // Uncomment to demonstrate async threading
+                    // Thread.Sleep(1000);
+                    taskList.Add(ExtractPostCodes(address));
                 }
             }
 
-            return await Task.WhenAll<AddressModel>(listOfTasks);
+            return await Task.WhenAll(taskList);
         }
 
         private Task<AddressModel> ExtractPostCodes(AddressModel address)
@@ -76,11 +85,6 @@ namespace Triggerfish.Controllers
                 {
                     address.PostalCode = token;
                 }
-            }
-
-            if (string.IsNullOrEmpty(address.PostalCode))
-            {
-                address.PostalCode = "No valid postcode found";
             }
 
             return Task.FromResult(address);

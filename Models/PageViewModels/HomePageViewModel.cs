@@ -10,10 +10,14 @@ namespace Triggerfish.Models.PageViewModels
     {
         [Display(Name = "Addresses")]
         public List<AddressModel> AddressList { get; set; }
+
+        [Display(Name = "Unique Postcodes")]
+        public List<string> PostcodeList { get; set; }
         
         public HomePageViewModel()
         {
             AddressList = new List<AddressModel>();
+            PostcodeList = new List<string>();
         }
     }
 }
