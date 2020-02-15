@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Git\\Triggerfish\\Triggerfish\\Triggerfish.csproj": {}
+    "D:\\Git\\Tf\\Triggerfish.csproj": {}
   },
   "projects": {
-    "D:\\Git\\Triggerfish\\Triggerfish\\Triggerfish.csproj": {
+    "D:\\Git\\Tf\\Triggerfish.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Git\\Triggerfish\\Triggerfish\\Triggerfish.csproj",
+        "projectUniqueName": "D:\\Git\\Tf\\Triggerfish.csproj",
         "projectName": "Triggerfish",
-        "projectPath": "D:\\Git\\Triggerfish\\Triggerfish\\Triggerfish.csproj",
+        "projectPath": "D:\\Git\\Tf\\Triggerfish.csproj",
         "packagesPath": "C:\\Users\\Hogan\\.nuget\\packages\\",
-        "outputPath": "D:\\Git\\Triggerfish\\Triggerfish\\obj\\",
+        "outputPath": "D:\\Git\\Tf\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
