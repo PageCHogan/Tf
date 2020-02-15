@@ -22,22 +22,16 @@ namespace Triggerfish.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
             HomePageViewModel viewModel = new HomePageViewModel();
 
             using (StreamReader r = new StreamReader("wwwroot/documents/addresses.json"))
             {
                 string json = r.ReadToEnd();
-                List<AddressModel> items = JsonConvert.DeserializeObject<List<AddressModel>>(json);
-                
-                if(items != null)
-                {
-                    viewModel.AddressList = items;
 
-                    //TODO: Call must be async
-                    viewModel.AddressList.ForEach(o => ExtractPostCodes(o));
-                }
+                var a = await ProcessJson(JsonConvert.DeserializeObject<List<AddressModel>>(json));
+                viewModel.AddressList = a.ToList();
             }
 
             return View(viewModel);
@@ -54,7 +48,22 @@ namespace Triggerfish.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        private AddressModel ExtractPostCodes(AddressModel address)
+        public async Task<IEnumerable<AddressModel>> ProcessJson(List<AddressModel> addressModels)
+        {
+            List<Task<AddressModel>> listOfTasks = new List<Task<AddressModel>>();
+
+            if (addressModels != null)
+            {
+                foreach (var address in addressModels)
+                {
+                    listOfTasks.Add(ExtractPostCodes(address));
+                }
+            }
+
+            return await Task.WhenAll<AddressModel>(listOfTasks);
+        }
+
+        private Task<AddressModel> ExtractPostCodes(AddressModel address)
         {
             Regex regexComplex = new Regex(@"^(?:(?:[2-8]\d|9[0-7]|0?[28]|0?9(?=09))(?:\d{2}))$"); // Source - https://rgxdb.com/r/2Z7DWG3I
             char[] delim = { ' ', ',', ';', ':', '.', '|' };
@@ -74,7 +83,7 @@ namespace Triggerfish.Controllers
                 address.PostalCode = "No valid postcode found";
             }
 
-            return address;
+            return Task.FromResult(address);
         }
     }
 }
