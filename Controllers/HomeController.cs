@@ -49,13 +49,18 @@ namespace Triggerfish.Controllers
             return View();
         }
 
+        public IActionResult Readme()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public async Task<IEnumerable<AddressModel>> ProcessAddresses(List<AddressModel> addresses)
+        private async Task<IEnumerable<AddressModel>> ProcessAddresses(List<AddressModel> addresses)
         {
             List<Task<AddressModel>> taskList = new List<Task<AddressModel>>();
 
@@ -74,14 +79,14 @@ namespace Triggerfish.Controllers
 
         private Task<AddressModel> ExtractPostCodes(AddressModel address)
         {
-            Regex regexComplex = new Regex(@"^(?:(?:[2-8]\d|9[0-7]|0?[28]|0?9(?=09))(?:\d{2}))$"); // Source - https://rgxdb.com/r/2Z7DWG3I
-            char[] delim = { ' ', ',', ';', ':', '.', '|' };
+            Regex ausPostRegex = new Regex(@"^(?:(?:[2-8]\d|9[0-7]|0?[28]|0?9(?=09))(?:\d{2}))$"); // Source - https://rgxdb.com/r/2Z7DWG3I
+            char[] delim = { ' ', ',', ';', ':', '.', '|', '(', ')' };
 
             //TODO: Currently retreives first confirmed 4 digit number
-            //  returning erronous postcode not found and street address is 4 digits.
+            //  returning erronous if postcode not found and street address is 4 digits
             foreach (string token in address.Address.Split(delim).Reverse().ToList())
             {
-                if (regexComplex.IsMatch(token) && string.IsNullOrEmpty(address.PostalCode))
+                if (ausPostRegex.IsMatch(token) && string.IsNullOrEmpty(address.PostalCode))
                 {
                     address.PostalCode = token;
                 }

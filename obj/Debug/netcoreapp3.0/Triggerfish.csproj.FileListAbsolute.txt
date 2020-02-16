@@ -106,3 +106,4 @@ D:\Git\Tf\obj\Debug\netcoreapp3.0\Triggerfish.Views.pdb
 D:\Git\Tf\obj\Debug\netcoreapp3.0\Triggerfish.csproj.CopyComplete
 D:\Git\Tf\obj\Debug\netcoreapp3.0\Triggerfish.dll
 D:\Git\Tf\obj\Debug\netcoreapp3.0\Triggerfish.pdb
+D:\Git\Tf\obj\Debug\netcoreapp3.0\Razor\Views\Home\Readme.cshtml.g.cs

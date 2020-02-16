@@ -4,11 +4,11 @@
     ViewData["Title"] = "Home Page";
 }
 
-    <div class="text-center">
-        <h1 class="display-4"><label asp-for="AddressList"></label></h1>
-        <hr />
-
-        <div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="display-4"><label asp-for="AddressList"></label></h1>
+            <hr />
             <ul>
                 @{
                     foreach (AddressModel address in Model.AddressList)
@@ -20,9 +20,9 @@
                 }
             </ul>
         </div>
-        <hr />
-        <div>
+        <div class="col-md-auto">
             <h1 class="display-4"><label asp-for="PostcodeList"></label></h1>
+            <hr />
             <ul>
                 @{
                     foreach (string postcode in Model.PostcodeList)
@@ -34,5 +34,5 @@
                 }
             </ul>
         </div>
-
     </div>
+</div>

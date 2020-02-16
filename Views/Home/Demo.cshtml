@@ -1,9 +1,37 @@
 ﻿@{
     ViewData["Title"] = "HTML Demo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
-<img src="~/images/1.jpg" height="350" width="350" style="margin-right:25px; margin-bottom:20px" />
-<img src="~/images/2.jpg" height="350" width="350" style="margin-right:25px; margin-bottom:20px" />
-<img src="~/images/3.jpg" height="350" width="350" />
+<div class="imageGrid" id="imageGrid">
+    <ul>
+        <li>
+            <figure>
+                <img src="~/images/1.jpg">
+                <figcaption><h3>Lorem Ipsum</h3></figcaption>
+            </figure>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tincidunt dui nisi, vitae dignissim quam malesuada eget. Vestibulum eget sem leo.
+            </p>
+        </li>
+        <li>
+            <figure>
+                <img src="~/images/2.jpg">
+                <figcaption><h3>Lorem Ipsum</h3></figcaption>
+            </figure>
+            <p>
+                Proin scelerisque, enim ut dapibus laoreet, velit neque ultricies felis, eget vehicula quam turpis ac nisl. Praesent suscipit, arcu ut facilisis egestas.
+            </p>
+        </li>
+        <li>
+            <figure>
+                <img src="~/images/3.jpg">
+                <figcaption><h3>Lorem Ipsum</h3></figcaption>
+            </figure>
+            <p>
+                Praesent commodo dolor magna, vitae ullamcorper nibh venenatis nec. Phasellus et tortor vitae orci feugiat imperdiet. Ut eu congue leo, ut malesuada libero.
+            </p>
+        </li>
+    </ul>
+</div>
