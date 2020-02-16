@@ -30,9 +30,15 @@
     "Address": "84 Blairs La, South Kempsey, NSW 2440"
   },
   {
+    "Address": "37 Blairs La, South Kempsey, NSW 24AE"
+  },
+  {
     "Address": "88 Wellesley St, South Hobart, TAS 7004"
   },
   {
-    "Address": "1 Dumbarton Rd, Canning Vale, WA 6155"
+    "Address": "1 Dumbarton Rd, Canning Vale, WA"
+  },
+  {
+    "Address": "2 Dumbarton Rd, Canning Vale, WA 6155"
   }
 ]

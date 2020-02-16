@@ -1,13 +1,14 @@
 ﻿@model Triggerfish.Models.PageViewModels.HomePageViewModel
-
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Address Processing";
 }
 
+<h1>@ViewData["Title"]</h1>
+<hr />
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1 class="display-4"><label asp-for="AddressList"></label></h1>
+            <h4><label asp-for="AddressList"></label></h4>
             <hr />
             <ul>
                 @{
@@ -21,7 +22,7 @@
             </ul>
         </div>
         <div class="col-md-auto">
-            <h1 class="display-4"><label asp-for="PostcodeList"></label></h1>
+            <h4><label asp-for="PostcodeList"></label></h4>
             <hr />
             <ul>
                 @{

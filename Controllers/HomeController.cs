@@ -28,6 +28,7 @@ namespace Triggerfish.Controllers
         {
             HomePageViewModel viewModel = new HomePageViewModel();
 
+            // Reads in test address data from .json file and processes them
             using (StreamReader reader = new StreamReader(TEST_DATA_PATH))
             {
                 string json = reader.ReadToEnd();
@@ -36,6 +37,7 @@ namespace Triggerfish.Controllers
                 viewModel.AddressList = addresses.ToList();
             }
 
+            // Add unique postcodes extracted to viewModel for display
             if(viewModel.AddressList.Count > 0)
             {
                 viewModel.PostcodeList.AddRange(viewModel.AddressList.Select(x => x.PostalCode).Distinct().OfType<string>());
@@ -60,6 +62,7 @@ namespace Triggerfish.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        // Asynchronously iterate through list of addresses and extract postcodes matching regular expression
         private async Task<IEnumerable<AddressModel>> ProcessAddresses(List<AddressModel> addresses)
         {
             List<Task<AddressModel>> taskList = new List<Task<AddressModel>>();
@@ -79,11 +82,11 @@ namespace Triggerfish.Controllers
 
         private Task<AddressModel> ExtractPostCodes(AddressModel address)
         {
-            Regex ausPostRegex = new Regex(@"^(?:(?:[2-8]\d|9[0-7]|0?[28]|0?9(?=09))(?:\d{2}))$"); // Source - https://rgxdb.com/r/2Z7DWG3I
+            // Australian Post Regular Expression Source - https://rgxdb.com/r/2Z7DWG3I
+            Regex ausPostRegex = new Regex(@"^(?:(?:[2-8]\d|9[0-7]|0?[28]|0?9(?=09))(?:\d{2}))$");
             char[] delim = { ' ', ',', ';', ':', '.', '|', '(', ')' };
 
-            //TODO: Currently retreives first confirmed 4 digit number
-            //  returning erronous if postcode not found and street address is 4 digits
+            // Tokenises address and iterates through backwards searching for postcode 
             foreach (string token in address.Address.Split(delim).Reverse().ToList())
             {
                 if (ausPostRegex.IsMatch(token) && string.IsNullOrEmpty(address.PostalCode))
